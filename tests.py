@@ -24,6 +24,11 @@ class TestBooksCollector:
     def class_object(self):
         self.collector = BooksCollector()
 
+    @pytest.mark.parametrize("book_name", ['Расёмон', 'о' * 40 ])
+    def test_add_new_book_valid_book_name_true(self,book_name):
+        self.collector.add_new_book(book_name)
+
+        assert book_name in self.collector.get_books_genre() and self.collector.get_books_genre()[book_name] == ''
 
 
 
