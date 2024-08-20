@@ -92,10 +92,7 @@ class TestBooksCollector:
 
 
 
-    def test_get_books_with_specific_genre_get_list_books_for_specific_genre(self,book_name,genre):
-        self.collector.add_new_book(book_name)
-        self.collector.set_book_genre(book_name,genre)
-
+    def test_get_books_with_specific_genre_get_list_books_for_specific_genre(self,add_book_with_genre,book_name,genre):
         self.collector.get_books_with_specific_genre(genre)
 
         assert self.collector.get_books_with_specific_genre(genre) == [book_name]
@@ -105,16 +102,13 @@ class TestBooksCollector:
 
         assert self.collector.get_books_with_specific_genre(genre) == []
 
-    def test_get_books_with_specific_genre_invalid_genre_get_empty_list(self,book_name,genre):
-        self.collector.add_new_book(book_name)
-        self.collector.set_book_genre(book_name, genre)
-
+    def test_get_books_with_specific_genre_invalid_genre_get_empty_list(self,add_book_with_genre,book_name,genre):
         invalid_genre = 'non-fiction'
         self.collector.get_books_with_specific_genre(invalid_genre)
 
         assert self.collector.get_books_with_specific_genre(invalid_genre) == []
 
-    def test_get_books_with_specific_genre_book_match_genre(self,book_name,genre):
+    def test_get_books_with_specific_genre_book_match_genre(self,add_book_with_genre,book_name,genre):
         another_book = 'Руководство по сборке ВАЗ 2017'
         another_genre = 'Ужасы'
 
@@ -128,6 +122,35 @@ class TestBooksCollector:
         self.collector.get_books_with_specific_genre(another_genre)
 
         assert self.collector.get_books_with_specific_genre(genre) == [book_name] and self.collector.get_books_with_specific_genre(another_genre) ==[another_book]
+
+
+
+    def test_get_books_genre_dictionary_empty_get_empty(self):
+        self.collector.get_books_genre()
+
+        assert self.collector.get_books_genre() == {}
+
+    def test_get_books_genre_dictionary_with_one_book_get_this_book(self,add_book_with_genre,book_name,genre):
+        self.collector.get_books_genre()
+
+        assert self.collector.get_books_genre() == {book_name: genre}
+
+    def test_get_books_genre_dictionary_with_several_books_get_this_books(self,add_book_with_genre,book_name,genre):
+        another_book = 'Руководство по сборке ВАЗ 2017'
+        another_genre = 'Ужасы'
+        self.collector.add_new_book(another_book)
+        self.collector.set_book_genre(another_book,another_genre)
+
+        self.collector.get_books_genre()
+        expected_books_genre = {
+            book_name: genre,
+            another_book: another_genre
+        }
+        assert self.collector.get_books_genre() == expected_books_genre
+
+
+
+
 
 
 
