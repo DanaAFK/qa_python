@@ -150,6 +150,38 @@ class TestBooksCollector:
 
 
 
+    def test_get_books_for_children_no_books_get_empty_list(self):
+        self.collector.get_books_for_children()
+        assert self.collector.get_books_for_children() == []
+
+    def test_get_books_for_children_possible_book_get_book_list(self,add_book_with_genre,book_name):
+        self.collector.get_books_for_children()
+        assert self.collector.get_books_for_children() == [book_name]
+
+    def test_get_books_for_children_possible_and_limited_books_get_list_possible_books(self,add_book_with_genre,book_name):
+        another_book = 'Руководство по сборке ВАЗ 2017'
+        another_genre = 'Ужасы'
+        self.collector.add_new_book(another_book)
+        self.collector.set_book_genre(another_book, another_genre)
+
+        self.collector.get_books_for_children()
+
+        assert self.collector.get_books_for_children() == [book_name]
+
+    def test_get_books_for_children_limited_book_get_empty_list(self):
+        another_book = 'Руководство по сборке ВАЗ 2017'
+        another_genre = 'Ужасы'
+        self.collector.add_new_book(another_book)
+        self.collector.set_book_genre(another_book, another_genre)
+
+        self.collector.get_books_for_children()
+
+        assert self.collector.get_books_for_children() == []
+
+
+
+
+
 
 
 
