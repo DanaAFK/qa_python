@@ -193,11 +193,41 @@ class TestBooksCollector:
 
         assert favorites_list.count(book_name) == 1
 
-    def test_add_book_in_favorites_non_existing_book_not_in_favorites(self,book_name):
+    def test_add_book_in_favorites_non_existing_book_not_in_favorites(self, book_name):
         self.collector.add_book_in_favorites(book_name)
         favorites_list = self.collector.get_list_of_favorites_books()
 
         assert book_name not in favorites_list
+
+
+
+    def test_delete_book_from_favorites_book_delete_success(self, add_book_with_genre, add_book_to_favorites, book_name):
+        self.collector.delete_book_from_favorites(book_name)
+        favorites_list = self.collector.get_list_of_favorites_books()
+
+        assert book_name not in favorites_list
+
+    def test_delete_book_from_favorites_not_in_favorites_not_delete(self,add_book_with_genre,book_name):
+        self.collector.delete_book_from_favorites(book_name)
+        favorites_list = self.collector.get_list_of_favorites_books()
+
+        assert book_name not in favorites_list
+
+    def test_delete_book_from_favorites_non_existing_book_not_delete(self):
+        another_book = 'Руководство по сборке ВАЗ 2017'
+        self.collector.delete_book_from_favorites(another_book)
+        favorites_list = self.collector.get_list_of_favorites_books()
+
+        assert another_book not in favorites_list
+
+
+
+
+
+
+
+
+
 
 
 
