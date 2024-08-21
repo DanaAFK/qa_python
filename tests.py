@@ -180,6 +180,29 @@ class TestBooksCollector:
 
 
 
+    def test_add_book_in_favorites_registered_book_add_favorites_list(self,add_book_with_genre,book_name):
+        self.collector.add_book_in_favorites(book_name)
+        favorites_list = self.collector.get_list_of_favorites_books()
+        assert book_name in favorites_list
+
+    def test_add_book_in_favorites_favorite_book_not_add_again_list(self,add_book_with_genre,book_name):
+        self.collector.add_book_in_favorites(book_name)
+        self.collector.add_book_in_favorites(book_name)
+
+        favorites_list = self.collector.get_list_of_favorites_books()
+
+        assert favorites_list.count(book_name) == 1
+
+    def test_add_book_in_favorites_non_existing_book_not_in_favorites(self,book_name):
+        self.collector.add_book_in_favorites(book_name)
+        favorites_list = self.collector.get_list_of_favorites_books()
+
+        assert book_name not in favorites_list
+
+
+
+
+
 
 
 
