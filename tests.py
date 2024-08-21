@@ -221,6 +221,22 @@ class TestBooksCollector:
         assert another_book not in favorites_list
 
 
+    def test_get_list_of_favorites_books_all_books_in_list(self, add_book_with_genre, add_book_to_favorites, book_name):
+        another_book = 'Руководство по сборке ВАЗ 2017'
+        another_genre = 'Ужасы'
+        self.collector.add_new_book(another_book)
+        self.collector.set_book_genre(another_book, another_genre)
+
+        self.collector.add_book_in_favorites(another_book)
+
+        favorites_list = self.collector.get_list_of_favorites_books()
+
+        assert favorites_list == [book_name, another_book]
+
+
+
+
+
 
 
 
