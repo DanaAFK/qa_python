@@ -2,11 +2,9 @@ import pytest
 
 from main import BooksCollector
 
-
 @pytest.fixture(autouse=True)
-def class_object(self):
-    collector = BooksCollector()
-    return collector
+def class_object():
+    return BooksCollector()
 @pytest.fixture
 def book_name():
     book_name = 'Ворота Расёмон'
