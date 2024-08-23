@@ -4,11 +4,6 @@ from main import BooksCollector
 
 class TestBooksCollector:
 
-    @pytest.fixture(autouse=True)
-    def class_object(self):
-        collector = BooksCollector()
-        return collector
-
     def test_add_new_book_add_two_books(self, class_object):
         class_object.add_new_book('Гордость и предубеждение и зомби')
         class_object.add_new_book('Что делать, если ваш кот хочет вас убить')
